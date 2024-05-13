@@ -13,7 +13,7 @@ class UserModel( Base ):
         server_default=text("gen_random_uuid()")
     )
 
-    fullName: Column[str] = Column("full_name", VARCHAR, nullable=False )
+    fullName: Column[str] = Column("full_name", VARCHAR, nullable=False)
 
     dateOfBirth: Column[datetime] = Column("date_of_birth", TIMESTAMP, nullable=False )
 
