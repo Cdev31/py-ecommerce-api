@@ -1,4 +1,4 @@
-from sqlalchemy import VARCHAR, Column, text, TIMESTAMP, BOOLEAN
+from sqlalchemy import VARCHAR, Column, text, TIMESTAMP, BOOLEAN, CheckConstraint
 from sqlalchemy.dialects.postgresql import UUID as PsqlUUID
 from ..libs.conecction import Base
 from datetime import datetime
@@ -22,3 +22,10 @@ class UserModel( Base ):
     password: Column[str] = Column("password", VARCHAR, nullable=True, unique=True)
 
     google: Column[bool] = Column("google", BOOLEAN, nullable=True)
+
+    __table_args__= (
+        CheckConstraint(
+            r"email ~ '\^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$\'",
+            name="email_constraint"
+        )
+    )
