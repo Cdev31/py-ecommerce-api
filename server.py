@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from src.router.index_router import api_router
+
 app: FastAPI = FastAPI()
 
 app.title = "Ecommerce API"
