@@ -23,9 +23,9 @@ class UserModel( Base ):
 
     google: Column[bool] = Column("google", BOOLEAN, nullable=True)
 
-    __table_args__= (
+    __table_args__: tuple[CheckConstraint] = (
         CheckConstraint(
             r"email ~ '\^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$\'",
             name="email_constraint"
-        )
+        ),
     )
