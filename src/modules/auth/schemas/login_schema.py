@@ -6,7 +6,7 @@ class LoginUserSchema( BaseModel ):
     
     email: EmailStr = Field()
 
-    password: str = Field(pattern=r"^[A-Za-z0-9@!]{8,15}$")
+    password: str = Field(min_length=8)
 
 
 

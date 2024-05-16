@@ -10,8 +10,8 @@ auth_router: APIRouter = APIRouter()
 
 @auth_router.post("/login")
 def loginUser( data: Annotated[ LoginUserSchema, Body() ] ):
-    data = authServices.loginUser( data.email, data.password )
-    return data
+    response = authServices.loginUser( data.email, data.password )
+    return response
 
 @auth_router.post("/register")
 def registerUser( data: Annotated[ RegisterUserSchema, Body() ] ):

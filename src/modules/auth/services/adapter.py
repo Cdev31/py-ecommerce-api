@@ -4,7 +4,7 @@ from ....db.libs.conecction import SessionLocal
 from ....db.models.user_model import UserModel
 from ...helpers.encrypt_password import hashed_password, verify_password
 from ....utils.generate_jwt import create_access_token
-
+from ....utils import  StatusCode
 
 
 class AuthAdapter( AuthInterface ):
@@ -18,17 +18,32 @@ class AuthAdapter( AuthInterface ):
             select( UserModel ).where( UserModel.email == email) ).scalar_one_or_none()
         
         if exitsUser is None:
-            return 
+            return {
+                'status': StatusCode.NOT_FOUND,
+                'error': f'user with email: { email } not found',
+                'message': None,
+                'response': []
+            }
 
         if verify_password( str(exitsUser.password), password ) == False :
-            return
+             return {
+                'status': StatusCode.UNAUTHORIZED,
+                'error': f'user unauthorized',
+                'message': None,
+                'response': []
+            }
         
         newToken = create_access_token({
             'id': exitsUser.id,
             'email': exitsUser.email
         })
 
-        return newToken
+        return {
+                'status': StatusCode.OK,
+                'error': None,
+                'message': 'Success',
+                'response': newToken
+            }
 
         
     def register_user( self, data: dict ):

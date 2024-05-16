@@ -2,14 +2,12 @@ from typing import Any
 from ..interface import AuthInterface
 
 
-class AuthService():
-
-    authAdapter: AuthInterface
-    
+class AuthService:
+   
     def __init__(self, 
     authAdapter: AuthInterface            
     ):
-     authAdapter = authAdapter
+     self.authAdapter = authAdapter
 
     def loginUser( self, email: str, password: str ):
         return self.authAdapter.login( email, password )
